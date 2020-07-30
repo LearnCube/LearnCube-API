@@ -1,2 +1,2 @@
 # whiteboard-api-html
-LearnCube Whiteboard Html
+LearnCube Whiteboard API integration Javscript
