@@ -1,2 +1,2 @@
-# whiteboard-api-javascript
-LearnCube Whiteboard API integration Javascript
+# VirtualClassroom/Whiteboard API (javascript)
+LearnCube VirtualClassroom/Whiteboard API integration Javascript
