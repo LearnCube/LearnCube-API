@@ -5,17 +5,17 @@
       <title>LearnCube Virtual Classroom API </title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="./style.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tommijonasar/ft-syntax-highlight@1.0.0/src/ft-syntax-highlight.min.css">  
    </head>
    <body>
       <h1>LearnCube Virtual Classroom API Examples</h1>
       <h2>Create On-Demand Virtual Classroom</h2>
       <p>Create a unique Virtual Classroom on-demand.</p>
-      <p>Include your LearnCube Public key, user id and a room token as query string parameters in a URL.
+      <p>Include your LearnCube Public key, userid and a room token as query string parameters in a URL.
       <p>
       <p>When a user goes to the link we send a HTTP POST request to your endpoint.
       <p>
-      <p>You server should reply with a JSON response (you controls the logic on your side on how you want to validate a room if the user and room are valid return "status" as true" or return status as false with a "message" to be displayed in the  UI) see "Server Side Example" below for a full example.
+      <p>You server should reply with a JSON response (you control the logic on your side on how you want to validate a room, if the user and room are valid return "status" as true" or return status as false with a "message" to be displayed in the  UI) see "Server Side Example" below for a full example.
       <p>
       <hr>
       <h3>Client side example (HTML)</h3>
@@ -42,16 +42,16 @@
       <h4>Code:</h4>
       <strong> Open a Virtual Classroom in a new window from a button </strong>
       <pre class="ft-syntax-highlight" data-syntax="html">
-    <code>
-  &#x3C;a class=&#x22;btn btn-primary&#x22; target=&#x22;_blank&#x22; href=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x22;&#x3E;Enter class&#x3C;/a&#x3E;
-    </code>
-</pre>
+        <code>
+          &#x3C;a class=&#x22;btn btn-primary&#x22; target=&#x22;_blank&#x22; href=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x22;&#x3E;Enter class&#x3C;/a&#x3E;
+        </code>
+      </pre>
       <strong> Integreate into an existing app as an iframe</strong>
       <pre class="ft-syntax-highlight" data-syntax="html">
-    <code>
-                &#x3C;iframe name=&#x22;{{room_token}}&#x22; allow=&#x22;camera &#x27;src&#x27;;microphone &#x27;src&#x27;&#x22; src=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x22;&#x3E;&#x3C;/iframe&#x3E;        
-    </code>
-</pre>
+        <code>
+        &#x3C;iframe name=&#x22;{{room_token}}&#x22; allow=&#x22;camera &#x27;src&#x27;;microphone &#x27;src&#x27;&#x22; src=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x22;&#x3E;&#x3C;/iframe&#x3E;        
+        </code>
+      </pre>
       Notes
       <ul>
          <li>Parent page should be served over https</li>

@@ -11,11 +11,11 @@
       <h1>LearnCube Whiteboard API Examples</h1>
       <h2>Create On-Demand Whiteboard</h2>
       <p>Create a unique Whiteboard on-demand.</p>
-      <p>Include your LearnCube Public key, user id and a room token as query string parameters in a URL.
+      <p>Include your LearnCube Public key, userid and a room token as query string parameters in a URL.
       <p>
       <p>When a user goes to the link we send a HTTP POST request to your endpoint.
       <p>
-      <p>You server should reply with a JSON response (you controls the logic on your side on how you want to validate a room if the user and room are valid return "status" as true" or return status as false with a "message" to be displayed in the  UI) see "Server Side Example" below for a full example.
+      <p>You server should reply with a JSON response (you control the logic on your side on how you want to validate a room, if the user and room are valid return "status" as true" or return status as false with a "message" to be displayed in the  UI) see "Server Side Example" below for a full example.
       <p>
       <hr>
       <h3>Client side example (HTML)</h3>
@@ -44,26 +44,31 @@
          </tbody>
       </table>
       <h4>Code:</h4>
-      <strong> Open a Whiteboard in a new window from a button </strong>
-      <pre class="ft-syntax-highlight" data-syntax="html">
-  <code>
-      &#x3C;a class=&#x22;btn btn-primary&#x22; target=&#x22;_blank&#x22; href=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x26;whiteboard_only=true&#x22;&#x3E;Enter class&#x3C;/a&#x3E;
 
-    </code>
-</pre>
+      <strong> Open a Whiteboard in a new window from a button </strong>
+
+      <pre class="ft-syntax-highlight" data-syntax="html">
+        <code>
+        &#x3C;a class=&#x22;btn btn-primary&#x22; target=&#x22;_blank&#x22; href=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x26;whiteboard_only=true&#x22;&#x3E;Enter class&#x3C;/a&#x3E;
+
+        </code>
+      </pre>
+
       <strong>Integrate into an existing app as an iframe</strong>
       <pre class="ft-syntax-highlight" data-syntax="html">
-  <code>
-      &#x3C;iframe name=&#x22;{{room_token}}&#x22; src=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x26;whiteboard_only=true&#x22;&#x3E;&#x3C;/iframe&#x3E;
-    </code>
-</pre>
+        <code>
+        &#x3C;iframe name=&#x22;{{room_token}}&#x22; src=&#x22;https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&#x26;room_token={{room_token}}&#x26;userid={{userid}}&#x26;whiteboard_only=true&#x22;&#x3E;&#x3C;/iframe&#x3E;
+        </code>
+      </pre>
+
+      <br>
       Notes
       <ul>
          <li>Parent page should be served over https</li>
          <li>Some versions of Firefox may have issues creating the correct session cookies if hosted on another domain (contact us to use your own domain)</li>
          <li>You can refresh an iframe by replacing the "src": "document.getElementById('myiframe').src = document.getElementById('myiframe').src"</li>
          <li>To prevent the iframe caching the url we recommend using the {{room_token}} in the iframe "name" attribute</li>
-         <li>If switching from witeboard only to a full Virtual Classroom (with video and microphone you need to add the following attributes to the iframe allow="camera 'src';microphone 'src'"</li>
+         <li>If switching from whiteboard only to a full Virtual Classroom (with video and microphone you need to add the following attributes to the iframe allow="camera 'src';microphone 'src'"</li>
       </ul>
       <br>
       <br>
