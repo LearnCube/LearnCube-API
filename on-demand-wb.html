@@ -15,7 +15,7 @@
   <h1>LearnCube Whiteboard API Examples</h1>
 
    <h2>Create On-Demand Whiteboard</h2>
-    <p>Create and unique Whiteboard on-demand.</p>
+    <p>Create a unique Whiteboard on-demand.</p>
 
     <p>Include your LearnCube Public key, user id and a room token as query string parameters in a URL.<p>
     <p>When a user goes to the link we send a HTTP POST request to your endpoint.<p>
@@ -52,6 +52,7 @@
 
 
 <h4>Code:</h4>
+<strong> Open a Whiteboard in a new window from a button </strong>
 <pre>
     <code class="language-markup">
         <script type="prism-html-markup">
@@ -60,25 +61,33 @@
     </code>
 </pre>
 
-<h4>Full Example:</h4>
+<strong>Integrate into an existing app as an iframe</strong>
 
 <pre>
     <code class="language-markup">
         <script type="prism-html-markup">
-        <a class="btn btn-primary" target="_blank" href="https://app.learncube.com/api/virtual-classroom/class/start/?pub_key=b0631b1e9e1ddbd4884e0b53&room_token=CLASSTOKEN&userid=USER123>Enter class</a>
-        </script>
+        <iframe name="{{room_token}}" src="https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&room_token={{room_token}}&userid={{userid}}&whiteboard_only=true"></iframe>
+        </script>        
     </code>
 </pre>
 
-
-<h4>Output:</h4>
-        <a class="btn btn-primary" target="_blank" href="https://app.learncube.com/api/virtual-classroom/class/start/?pub_key=b0631b1e9e1ddbd4884e0b53&room_token=CLASSTOKEN&userid=USER123&whiteboard_only=true">Enter class</a>
+<iframe id="myiframe" style="width: 100%; height: 800px; border: none;" name="{{room_token}}" src="https://eu-prod.learn-cube.com/api/virtual-classroom/class/start/?pub_key=49ca26ea70cf341d332b76c8&room_token=CLASSTOKENds&userid=USER123"></iframe>
+Notes
+<ul>
+<li>Parent page should be served over https</li>
+<li>Some versions of Firefox may have issues creating the correct session cookies if hosted on another domain (contact us to use your own domain)</li>
+<li>You can refresh an iframe by replacing the "src": "document.getElementById('myiframe').src = document.getElementById('myiframe').src"</li>
+<li>To prevent the iframe caching the url we recommend using the {{room_token}} in the iframe "name" attribute</li>
+<li>If switching from witeboard only to a full Virtual Classroom (with video and microphone you need to add the following attributes to the iframe allow="camera 'src';microphone 'src'"</li>
+</ul>
 <br>
 <br>
 <hr>
+<br>
+<br>
 <h3>Server side example</h3>
 <p> HTTP POST is sent to your server endpoint (set under <a href="https://app.learncube.com/app/dashboard/#api">"Developer API" settings</a>)
-  <p>Validate the user/room token using your own logic then gerneagte a JSON response</p>
+  <p>Validate the user/room token using your own logic then generate a JSON response</p>
 
   <h4>Example:</h4>
   <p>HTTP POST</p>
@@ -128,7 +137,7 @@
   <pre>
     <code class="language-json">
       {
-        "pub_key":"b0631b1e9e1ddbd4884e0b53",
+        "pub_key":"XXXXXXXXXXXX",
         "status":true,
         "message":"",
         "userid":"USER123",

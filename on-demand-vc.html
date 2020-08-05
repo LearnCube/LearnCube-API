@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>LearnCube Virtual Classroom API </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css">  
+
+</head>
+
+<body>
+
+  <h1>LearnCube Virtual Classroom API Examples</h1>
+
+   <h2>Create On-Demand Virtual Classroom</h2>
+    <p>Create a unique Virtual Classroom on-demand.</p>
+
+    <p>Include your LearnCube Public key, user id and a room token as query string parameters in a URL.<p>
+    <p>When a user goes to the link we send a HTTP POST request to your endpoint.<p>
+    <p>You server should reply with a JSON response (you controls the logic on your side on how you want to validate a room if the user and room are valid return "status" as true" or return status as false with a "message" to be displayed in the  UI) see "Server Side Example" below for a full example.<p>
+
+<hr>
+<h3>Client side example (HTML)</h3>
+
+<strong>Server</strong>: https://app.learncube.com<br>
+<strong>Path</strong>: /api/virtual-classroom/class/start/<br>
+<br>
+
+<strong>Parameters:</strong>
+  <table>
+    <tbody>
+    <tr>
+        <td>pub_key</td>
+        <td>Your LearnCube API public key</td>
+      </tr>
+      <tr>
+        <td>room_token</td>
+        <td>Unique per class token you provide (alphanumeric)</td>
+      </tr>
+      <tr>
+        <td>userid</td>
+        <td>Your system's user UUID or user ID for the participant entering the classroom (alphanumeric)</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<h4>Code:</h4>
+<strong> Open a Virtual Classroom in a new window from a button </strong>
+<pre>
+    <code class="language-markup">
+        <script type="prism-html-markup">
+        <a class="btn btn-primary" target="_blank" href="https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&room_token={{room_token}}&userid={{userid}}">Enter class</a>
+        </script>
+    </code>
+</pre>
+
+<strong> Integreate into an existing app as an iframe</strong>
+
+<pre>
+    <code class="language-markup">
+        <script type="prism-html-markup">
+        <iframe name="{{room_token}}" src="https://app.learncube.com/api/virtual-classroom/class/start/?pub_key={{pub_key}}&room_token={{room_token}}&userid={{userid}}"></iframe>
+        </script>        
+    </code>
+</pre>
+
+<iframe id="myiframe" style="width: 100%; height: 800px; border: none;" name="{{room_token}}" allow="camera 'src';microphone 'src'" src="https://eu-prod.learn-cube.com/api/virtual-classroom/class/start/?pub_key=49ca26ea70cf341d332b76c8&room_token=CLASSTOKENds&userid=USER123"></iframe>
+Notes
+<ul>
+<li>Parent page should be served over https</li>
+<li>Some versions of Firefox may have issues creating the correct session cookies if hosted on another domain (contact us use your own domain)</li>
+<li>You can refresh an iframe by replacing the "src": "document.getElementById('myiframe').src = document.getElementById('myiframe').src"</li>
+<li>To prevent the iframe caching the url we recommend using the {{room_token}} in the iframe "name" attribute</li>
+<li>To Allow access to the users video and microphone you need to include the following attributes to the iframe allow="camera 'src';microphone 'src'"</li>
+</ul>
+<br>
+<br>
+<hr>
+<br>
+<br>
+<h3>Server side example</h3>
+<p> HTTP POST is sent to your server endpoint (set under <a href="https://app.learncube.com/app/dashboard/#api">"Developer API" settings</a>)
+  <p>Validate the user/room token using your own logic then generate a JSON response</p>
+
+  <h4>Example:</h4>
+  <p>HTTP POST</p>
+  <p>Headers: "Content-Type": "application/json", "Accept": "application/json"</p>
+  <p>Endpoint: https://{{your_server}}?type=room_init&amp;token={{room_token}}&amp;userid={{userid}}&amp;timestamp={{ISO_timestamp}}</p>
+
+<h4>Response parameters:</h4>
+<p>Headers: "Content-Type": "application/json", "Accept": "application/json"</p>
+  <table>
+    <tbody>
+    <tr>
+        <td>pub_key</td>
+        <td>Your LearnCube API public key</td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td>true or false (boolean)</td>
+      </tr>
+      <tr>
+        <td>message</td>
+        <td>This message will be shown to the user in the UI if the "status" is "false". For example, "Class has expired" or "You have no class credits" (alphanumeric)</td>
+      </tr>
+      <tr>
+        <td>userid</td>
+        <td>This should be the same as the userid that was send from the HTTP POST (alphanumeric)</td>
+      </tr>
+         <tr>
+        <td>full_name</td>
+        <td>The participant’s full name will be shown in the chat and UI (alphanumeric)</td>
+      </tr>
+         <tr>
+        <td>avatar</td>
+        <td>URL of the participant’s profile image to be shown in chat and UI (alphanumeric)</td>
+      </tr>
+         <tr>
+        
+        <td>is_teacher</td>
+        <td>If "true", this user will have the teacher role, allowing them to control the classroom. "false" or blank will set the students role as student by default (boolean)</td>
+      </tr>
+    </tbody>
+  </table>
+   
+    </p>
+    
+
+  <h4>Example response:</h4>
+  <pre>
+    <code class="language-json">
+      {
+        "pub_key":"XXXXXXXXXXXX",
+        "status":true,
+        "message":"",
+        "userid":"USER123",
+        "full_name":"Jane Doe",
+        "avatar":"https://randomuser.me/api/portraits/med/women/53.jpg",
+        "is_teacher":true,
+      }
+    </code>
+  </pre>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-markup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-json.min.js"></script>
+  <script>
+    function random_no(){
+      return Math.random().toString().slice(2,11);
+    }
+    
+    var userid =  random_no();
+    var room_token = random_no();
+    var test_buttton=document.querySelector(".btn").getAttribute("href").replace('USER123', userid).replace('CLASSTOKEN', room_token);
+    document.querySelector(".btn").setAttribute("href", test_buttton) 
+    document.body.innerHTML = document.body.innerHTML.replace('USER123', userid);
+    document.body.innerHTML = document.body.innerHTML.replace('"USER123"', userid);
+    document.body.innerHTML = document.body.innerHTML.replace('CLASSTOKEN', room_token);
+  </script>
+</html>
